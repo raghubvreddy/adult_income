@@ -42,9 +42,6 @@ train2<-train2[,-1]
 
 ####################
 
-all_content <- readLines("Adult_test.csv")
-str(all_content)
-
 # applying the column names from the readme.txt
 
 varnames=c("AGE",
@@ -86,6 +83,13 @@ write.csv(test1,"test_clean.csv")
 test2=read.csv("test_clean.csv")
 test2<-test2[,-1]
 
+# abc=sqldf("select * from test2 where INCOME_LEVEL  NOT like '%<=50K.%' and 
+#                               INCOME_LEVEL NOT like '%>50K.%'" )
+
+test2=test2[-(test2$AGE == "|1x3 Cross validator"),]
+write.csv(test2,"test_clean2.csv")
+test2=read.csv("test_clean2.csv")
+test2<-test2[,-1]
 #cleaning the income_level  levels 
 levels(test2$INCOME_LEVEL)<-levels(train2$INCOME_LEVEL)
 
