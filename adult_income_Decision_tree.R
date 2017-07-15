@@ -93,4 +93,24 @@ test2<-test2[,-1]
 #cleaning the income_level  levels 
 levels(test2$INCOME_LEVEL)<-levels(train2$INCOME_LEVEL)
 
+#build the decision Tree using rpart
+dtree<-rpart(INCOME_LEVEL~.,data=train2,method ="class")
+
+plot(dtree)
+text(dtree,pretty = 0)
+fancyRpartPlot(dtree, main = "Adult Income Level")
+print(dtree)
+
+
+#preictions on test data
+
+test_pred=predict(dtree,test2[,1:14])
+str(test_pred)
+results=ifelse(test_pred[,1] >=0.5," <=50K"," >50K")
+
+#model accuracy
+accuracy<-round(sum(results==test2[,15])/length(results),digit=4)
+print(paste("The model correctly predicted the test outcome ",
+            accuracy*100, "% of the time", sep=""))
+
 
