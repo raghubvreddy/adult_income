@@ -1,13 +1,14 @@
 #install and load necessary packages
 install.packages("rpart.plot")
 install.packages("rattle",dependencies = TRUE)
+install.packages("tree")
 library(rpart.plot)
 library(rpart)
 library(rattle)
 library(dplyr)
 library(data.table)
 library(sqldf)
-
+library(tree)
 url.train <-"http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
 url.test <- "http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test"
 url.names <- "http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.names"
@@ -100,6 +101,9 @@ plot(dtree)
 text(dtree,pretty = 0)
 fancyRpartPlot(dtree, main = "Adult Income Level")
 print(dtree)
+
+#using tree package
+
 
 
 #preictions on test data
